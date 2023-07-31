@@ -1,11 +1,13 @@
 import React, { useState } from "react";
-
-export default function Login({ openMain }) {
+import ReactSwitch from "react-switch"
+export default function Login({ openMain, theme, toggleTheme }) {
   return (
     <div>
       <div className="container">
         <div className="box">
-          <form className="inputContainer">
+
+              <ReactSwitch onChange={toggleTheme} checked={theme === "dark"} />
+          <form className="inputContainer" id={theme}>
             <h1>Login</h1>
             <div className="usernameContainer">
               <label htmlFor="username">Username</label>
