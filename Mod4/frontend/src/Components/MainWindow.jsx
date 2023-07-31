@@ -3,8 +3,9 @@ import { useEffect, useState } from "react";
 import "../../src/styles.css";
 import NewTodoForm from "../Components/NewTodoForm";
 import List from "../Components/List";
+import ReactSwitch from "react-switch"
 
-export default function MainWindow() {
+export default function MainWindow({ theme, toggleTheme }) {
   const [todos, setTodos] = useState(() => {
     const localValue = localStorage.getItem("ITEM");
     if (localValue == null) {
@@ -50,7 +51,9 @@ export default function MainWindow() {
   }
 
   return (
-    <div>
+    <div id={theme}>
+      
+      <ReactSwitch onChange={toggleTheme} checked={theme === "dark"} />
       <NewTodoForm addTodo={addTodo} />
 
       {/* TODO LIST  */}

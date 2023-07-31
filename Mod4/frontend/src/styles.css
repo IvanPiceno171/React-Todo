@@ -184,5 +184,17 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    /* flex-direction: column; */
+  }
+
+
+
+  /* light dark mode */
+  #light {
+    color: black;
+    background-color: aliceblue;
+  }
+
+  #dark {
+    background-color: rgb(8, 24, 38);
+
   }
