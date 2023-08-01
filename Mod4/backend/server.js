@@ -81,7 +81,7 @@ app.post('/todos', async (req, res)=>{
     console.log('post todos', req.body)
     try{
         const newTodo = req.body;
-       await todos.push(newTodo)
+        await todos.push(newTodo)
         return res.status(201).json({ todos });
     }catch(err){
         console.log(err)
