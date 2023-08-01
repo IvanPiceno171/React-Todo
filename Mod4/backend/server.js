@@ -57,31 +57,39 @@ app.use(async (req, res, next)=>{
 })
 
 
+const todos = [
+    {
+        title: 'gym'
+    },
+    {
+        title: 'clean'
+    }
+]
 
 app.get('/', (req, res)=>{
     return res.send("Hello World")
 })
 
-app.get('/students', (req, res)=>{
+app.get('/todos', (req, res)=>{
     
-    const students = [
-        {
-            name: 'Ramiro'
-        },
-        {
-            name: 'Bryan'
-        },
-        {
-            name: 'Ivan'
-        }
-    ]
-    // return res.status(200).json({data : students} )
-    return res.status(200).json({ students } )
+    // return res.status(200).json({data : todos} )
+    return res.status(200).json({ todos } )
 })
 
-// app.get('/todos', (req, res)=>{
-//     return res.send("Hello World")
-// })
+
+app.post('/todos', async (req, res)=>{
+    console.log('post todos', req.body)
+    try{
+        const newTodo = req.body;
+       await todos.push(newTodo)
+        return res.status(201).json({ todos });
+    }catch(err){
+        console.log(err)
+        return res.status(500).json({ error: 'Internal Server Error' });
+
+    }
+})
+
 
 app.listen(port, ()=>{
     console.log(`Server running on ${port}`)
