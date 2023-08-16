@@ -15,8 +15,8 @@ const app = express()
 const port = process.env.PORT || 5000;
 
 const corOptions = {
-    origin:'*',
-    // methods:"GET,POST",
+    origin:'http://localhost:5173',
+    methods:"GET,POST,PUT,DELETE",
     credentials: true,
     optionSuccessStatus:200
 }
@@ -57,24 +57,20 @@ app.use(async (req, res, next)=>{
 })
 
 
-const todos = [
-    {
-        title: 'gym'
-    },
-    {
-        title: 'clean'
+const todos = []
+
+app.get('/', async (req, res) => {
+    try {
+        const [todos] = await req.db.query('SELECT * FROM todos');
+        return res.status(200).json({ todos });
+    } catch (err) {
+        console.log(err);
+        return res.status(500).json({ error: 'Internal Server Error' });
     }
-]
-
-
-app.get('/', (req, res)=>{
-    
-    // return res.status(200).json({data : todos} )
-    return res.status(200).json({ todos } )
-})
+});
 
 app.post('/', async (req, res)=>{
-    console.log('post todos', req.body)
+    // console.log('post todos', req.body)
     try{
         const newTodo = req.body;
         await todos.push(newTodo)
@@ -140,7 +136,7 @@ app.delete('/:id', async (req, res)=>{
             if (todo.affectedRows === 0) {
                 return res.status(404).json({ error: 'Todo not found' });
               }
-
+              
         return res.status(201).json({ success: "Todo deleted"});
     }catch(err){
         console.log(err)
