@@ -7,8 +7,11 @@ export default function TodoItem({
   title,
   toggleTodos,
   deleteTodos,
+  setTodos
 }) {
-    
+
+
+  
   return (
     <div>
       <li key={id}>
@@ -19,12 +22,12 @@ export default function TodoItem({
             name=""
             id=""
             onChange={(e) => {
-              toggleTodos(id, e.target.checked);
+            toggleTodos(id, e.target.checked, setTodos);          
             }}
           />
           {title}
         </label>
-        <button className="btn btn-danger" onClick={() => deleteTodos(id)}>
+        <button className="btn btn-danger" onClick={() => deleteTodos(id, setTodos)}>
           Delete
         </button>
       </li>

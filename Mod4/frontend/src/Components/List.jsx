@@ -1,38 +1,11 @@
 import React, {useEffect} from 'react'
 import TodoItem from './TodoItem'
 
-export default function List({todos, toggleTodos, deleteTodos, databaseChanged}) {
-  console.log(todos)
+export default function List({todos, toggleTodos, deleteTodos}) {
 
+useEffect(()=>{
 
-
-
-  useEffect(() => {
-    // Fetch the latest todos from the server and update the state
-    async function fetchTodos() {
-      try {
-        const response = await fetch('http://localhost:5000/', {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        });
-
-        if (response.status === 200) {
-          const data = await response.json();
-          console.log(data);
-          setTodos(data.todos);
-        } else {
-          console.error('Error fetching todos:', response.status);
-        }
-      } catch (error) {
-        console.error('Error fetching todos:', error);
-      }
-    }
-
-    fetchTodos();
-  }, [databaseChanged]); // Fetch whenever databaseChanged changes
-
+},[todos])
 
 
   return (
@@ -45,8 +18,8 @@ export default function List({todos, toggleTodos, deleteTodos, databaseChanged})
         {todos.map((todo) => (
          <TodoItem 
          {...todo} //todo.completed, todo.id, todo.title, 
-         deleteTodos={deleteTodos}
-         toggleTodos={toggleTodos}
+         deleteTodos={() => deleteTodos(todo.id)}
+         toggleTodos={(id, completed) => toggleTodos(id, completed)}
         // key={todo.id}
          />
 
