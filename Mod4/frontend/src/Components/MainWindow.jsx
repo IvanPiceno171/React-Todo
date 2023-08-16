@@ -59,7 +59,7 @@ export default function MainWindow({ theme, toggleTheme }) {
         const data = await response.json();
         
         setTodos((currentTodos) => [...currentTodos, data.todo]);
-        setDatabaseChanged(!databaseChanged);
+        setDatabaseChanged(true);
 
       } else {
         console.error("Error adding todo:", response.status);
@@ -88,7 +88,7 @@ export default function MainWindow({ theme, toggleTheme }) {
         method: "DELETE",
       });
 
-      if (response.status === 200) {
+      if (response.status === 201) {
         setTodos((currentTodos) =>
           currentTodos.filter((todo) => todo.id !== id)
         );
