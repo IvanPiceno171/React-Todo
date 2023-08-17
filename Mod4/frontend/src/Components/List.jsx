@@ -1,7 +1,13 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import TodoItem from './TodoItem'
 
 export default function List({todos, toggleTodos, deleteTodos}) {
+
+useEffect(()=>{
+
+},[todos])
+
+
   return (
     <div>
             <h1 className="header">Todo list</h1>
@@ -12,9 +18,9 @@ export default function List({todos, toggleTodos, deleteTodos}) {
         {todos.map((todo) => (
          <TodoItem 
          {...todo} //todo.completed, todo.id, todo.title, 
-         deleteTodos={deleteTodos}
-         toggleTodos={toggleTodos}
-        key={todo.id}
+         deleteTodos={() => deleteTodos(todo.id)}
+         toggleTodos={(id, completed) => toggleTodos(id, completed)}
+        // key={todo.id}
          />
 
          ))}
